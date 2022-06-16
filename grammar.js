@@ -4,6 +4,7 @@ module.exports = grammar({
   conflicts: $ => [
     [$.simpleId, $.className],
     [$.simpleId, $.literalId],
+    [$.moduleName, $.varName],
     [$.simpleId, $.moduleInstantiation],
     [$.className, $.moduleInstantiation],
     [$.moduleMember, $.db_entry],
@@ -408,7 +409,7 @@ module.exports = grammar({
     ),
 
     moduleInstantiation: $ => seq(
-      $._upper_id,
+      field("name", $.moduleName),
       "<",
       sep1($.signatureExpr, ","),
       ">"
